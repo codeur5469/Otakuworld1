@@ -14,33 +14,25 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_member_join(member):
-    # Remplace par le nom exact de ton salon
-    channel = member.guild.get_channel(1495041626798817443)
-    
-    if channel:
+    # Channel 1
+    channel1 = member.guild.get_channel(1495041626798817443)
+    if channel1:
         message = f"Bienvenue {member.mention} sur le serveur !"
         try:
             file = discord.File("gen.gif")
-            await channel.send(content=message, file=file)
-        except:
-            # Option B si le fichier n'existe pas localement
-            # await channel.send(f"{message}\nhttps://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif")
-            print("Erreur : Le fichier gen.gif est introuvable.")
+            await channel1.send(content=message, file=file)
+        except Exception as e:
+            print(f"Erreur channel1 : {e}")
 
-@bot.event
-async def on_member_join(member):
-    # Remplace par le nom exact de ton salon
-    channel = member.guild.get_channel(1495055776216121425)
-    
-    if channel:
+    # Channel 2
+    channel2 = member.guild.get_channel(1495055776216121425)
+    if channel2:
         message = f"Bienvenue {member.name} sur le serveur !"
         try:
             file = discord.File("welcome.gif")
-            await channel.send(content=message, file=file)
-        except:
-            # Option B si le fichier n'existe pas localement
-            # await channel.send(f"{message}\nhttps://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif")
-            print("Erreur : Le fichier gen.gif est introuvable.")
+            await channel2.send(content=message, file=file)
+        except Exception as e:
+            print(f"Erreur channel2 : {e}")
 
 @bot.event
 async def on_member_remove(member):
