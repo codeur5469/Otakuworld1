@@ -15,16 +15,6 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
 async def on_member_join(member):
-    # Channel 1
-    channel1 = member.guild.get_channel(1495041626798817443)
-    if channel1:
-        message = f"Bienvenue {member.mention} sur le serveur !"
-        try:
-            file = discord.File("gen.gif")
-            await channel1.send(content=message, file=file)
-        except Exception as e:
-            print(f"Erreur channel1 : {e}")
-
     # Channel 2
     channel2 = member.guild.get_channel(1495055776216121425)
     if channel2:
@@ -44,18 +34,6 @@ async def on_member_join(member):
             await msg.delete()
         except Exception as e:
             print(f"Erreur channel3 : {e}")
-
-@bot.event
-async def on_member_remove(member):
-    channel = member.guild.get_channel(1495055943417856000)
-    
-    if channel:
-        message = f"**{member.name}** vient de quitter le serveur. 👋"
-        try:
-            file = discord.File("bye.gif")
-            await channel.send(content=message, file=file)
-        except Exception as e:
-            print(f"Erreur : {e}")
 
 keepalive()
 bot.run(TOKEN)
