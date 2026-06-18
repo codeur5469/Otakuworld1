@@ -36,7 +36,7 @@ async def on_member_join(member):
             print(f"Erreur channel3 : {e}")
 
 @bot.command
-async def test(member):
+async def test(ctx, member: discord.Member):
     # Channel 2
     channel2 = member.guild.get_channel(1517126171010007113)
     if channel2:
