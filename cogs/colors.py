@@ -84,10 +84,10 @@ class ColorReactions(commands.Cog):
             description=(
                 "Ajoute une réaction avec l'émoji correspondant pour obtenir ta couleur.\n"
                 "Retire ta réaction pour perdre la couleur !\n\n"
-                "❤️ **Rouge** (`#ff1900`) | 💙 **Bleu** (`#0099ff`) | 💚 **Vert** (`#2ecc71`)\n"
-                "💜 **Violet** (`#9B59B6`)\n"
-                "🧡 **Orange** (`#E67E22`) | 💛 **Jaune** (`#F1C40F`) | 🩷 **Rose** (`#ff4885`)\n"
-                "🖤 **Noir** (`#010101`) | 🤍 **Blanc** (`#ffffff`) | 🔘 **Gris** (`#7e7e7e`)\n"
+                "❤️ **Rouge**  | 💙 **Bleu**  | 💚 **Vert**\n"
+                "💜 **Violet** \n"
+                "🧡 **Orange**  | 💛 **Jaune**  | 🩷 **Rose** \n"
+                "🖤 **Noir**  | 🤍 **Blanc**  | 🩶 **Gris** \n"
             ),
             color=0x2F3136
         )
