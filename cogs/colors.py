@@ -85,7 +85,7 @@ class ColorReactions(commands.Cog):
                 "Ajoute une réaction avec l'émoji correspondant pour obtenir ta couleur.\n"
                 "Retire ta réaction pour perdre la couleur !\n\n"
                 "❤️ Rouge | 💙 Bleu | 💚 Vert | 💜 Violet | 🧡 Orange \n"
-                "💛 Jaune | 💖 Rose | 🖤 Noir | 🤍 Blanc  | 🩶 Gris "
+                "💛 Jaune | 🩷 Rose | 🖤 Noir | 🤍 Blanc  | 🩶 Gris "
             ),
             color=0x2F3136
         )
