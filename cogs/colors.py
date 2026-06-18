@@ -85,12 +85,12 @@ class ColorReactions(commands.Cog):
     @commands.has_permissions(administrator=True)
     async def colors(self, ctx):
         embed = discord.Embed(
-            title="🎨 Choisis ta couleur via les Réactions !",
+            title="🎨 ୨✧ Rôle couleur — Personnalisation du pseudo",
             description=(
-                "Ajoute une réaction avec l'émoji correspondant pour obtenir ta couleur.\n"
-                "Retire ta réaction pour perdre la couleur !\n\n"
-                "❤️ Rouge | 💙 Bleu | 💚 Vert | 💜 Violet | 🧡 Orange \n"
-                "💛 Jaune | 🩷 Rose | 🖤 Noir | 🤍 Blanc  | 🩶 Gris "
+                "**💫 Sélectionne la couleur de ton pseudo en réagissant avec l'emoji correspondant ci-dessous.**\n"
+                "**Le rôle associé te sera automatiquement attribué.**\n\n"
+                "🔁 Pour modifier ta couleur, retire simplement ta réaction actuelle puis ajoute-en une nouvelle.\n"
+                "⚠️ Retirer ta réaction supprime également le rôle associé."
             ),
             color=0x2F3136
         )
