@@ -6,7 +6,7 @@ class ColorReactions(commands.Cog):
         self.bot = bot
         
         # ⚠️ METS TON VRAI ID ICI APRÈS AVOIR FAIT !colors UNE PREMIÈRE FOIS
-        self.target_message_id = 1517230853216927869 
+        self.target_message_id = None
 
         # Dictionnaire qui associe chaque émoji à l'ID de son rôle
         self.emoji_to_role = {
@@ -98,6 +98,8 @@ class ColorReactions(commands.Cog):
         
         msg = await ctx.send(embed=embed)
         
+        self.target_message_id = msg.id
+
         for emoji in self.emoji_to_role.keys():
             await msg.add_reaction(emoji)
             
