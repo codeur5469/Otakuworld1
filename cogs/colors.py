@@ -5,8 +5,8 @@ class ColorReactions(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         
-        # ⚠️ METS L'ID DU MESSAGE DE L'EMBED ICI APRÈS L'AVOIR ENVOYÉ AVEC !colors
-        self.target_message_id = 111111111111111111 
+        # ⚠️ METS TON VRAI ID ICI APRÈS AVOIR FAIT !colors UNE PREMIÈRE FOIS
+        self.target_message_id = 1517230853216927869 
 
         # Dictionnaire qui associe chaque émoji à l'ID de son rôle
         self.emoji_to_role = {
@@ -29,11 +29,9 @@ class ColorReactions(commands.Cog):
     # 1. Quand un membre AJOUTE une réaction
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
-        # On vérifie que c'est bien le bon message
         if payload.message_id != self.target_message_id:
             return
 
-        # On ignore si c'est le bot qui réagit
         if payload.user_id == self.bot.user.id:
             return
 
@@ -44,7 +42,11 @@ class ColorReactions(commands.Cog):
                 return
 
             role = guild.get_role(self.emoji_to_role[emoji_name])
-            member = guild.get_member(payload.user_id)
+            try:
+                # fetch_member est beaucoup plus stable que get_member ici
+                member = await guild.fetch_member(payload.user_id)
+            except discord.HTTPException:
+                return
 
             if role and member:
                 try:
@@ -66,7 +68,10 @@ class ColorReactions(commands.Cog):
                 return
 
             role = guild.get_role(self.emoji_to_role[emoji_name])
-            member = guild.get_member(payload.user_id)
+            try:
+                member = await guild.fetch_member(payload.user_id)
+            except discord.HTTPException:
+                return
 
             if role and member:
                 try:
@@ -91,13 +96,12 @@ class ColorReactions(commands.Cog):
         )
         embed.set_footer(text="Réagis pour obtenir ton rôle")
         
-        # On envoie l'embed
         msg = await ctx.send(embed=embed)
         
-        # Le bot ajoute automatiquement toutes les réactions sous l'embed pour que les utilisateurs cliquent juste dessus
         for emoji in self.emoji_to_role.keys():
             await msg.add_reaction(emoji)
             
-        print(f"Message envoyé ! Copie cet ID et mets le à la ligne 14 : {msg.id}")
+        print(f"Message envoyé ! Copie cet ID et mets le à la ligne 8 : {msg.id}")
+
 async def setup(bot):
     await bot.add_cog(ColorReactions(bot))
