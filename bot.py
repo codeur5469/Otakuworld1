@@ -6,7 +6,7 @@ from keep_alive import keepalive
 import asyncio
 
 load_dotenv()
-TOKEN = "MTUxNzU5MDU4Mjk1MDg4NzQzNA.GzSSnL.jivYXmkwCOvOXg4YmJZ6_QaV09pLkDfnqA3VMg"
+TOKEN = os.getenv("DTOK")
 
 intents = discord.Intents.default()
 intents.members = True          # Indispensable pour on_raw_reaction_add
