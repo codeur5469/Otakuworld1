@@ -8,46 +8,46 @@ import asyncio
 load_dotenv()
 TOKEN = os.getenv("DTOK")
 
-intents = discord.Intents.default()
-intents.members = True          # Indispensable pour on_raw_reaction_add
-intents.message_content = True  # Pour la lecture des messages
-intents.reactions = True        # Pour détecter les réactions
+class MyBot(commands.Bot):
+    def __init__(self):
+        intents = discord.Intents.default()
+        intents.members = True
+        intents.message_content = True
+        intents.reactions = True
+        
+        super().__init__(command_prefix="!", intents=intents)
 
-bot = commands.Bot(command_prefix="!", intents=intents)
+    async def setup_hook(self):
+        # 1. Charger les extensions
+        await self.load_extensions()
+        
+        # 2. Synchronisation FORCEE
+        guild = discord.Object(id=1494456001666224331)
+        self.tree.clear_commands(guild=guild) # <--- On vide tout le cache du serveur
+        self.tree.copy_global_to(guild=guild)
+        await self.tree.sync(guild=guild) # <--- On renvoie tout proprement
+        print("✅ Commandes totalement réinitialisées et synchronisées !")
 
-# --- AJOUT : Fonction pour charger automatiquement tous les Cogs du dossier ---
-async def load_extensions():
-    # 1. On force le chargement du cog database en premier !
-    try:
-        await bot.load_extension("cogs.database")
-        print("Cog database chargé en priorité.")
-    except Exception as e:
-        print(f"Erreur chargement priorité database : {e}")
+    async def load_extensions(self):
+        # Charger database en priorité
+        try:
+            await self.load_extension("cogs.database")
+        except Exception as e:
+            print(f"Erreur database : {e}")
 
-    # 2. Ta boucle actuelle qui charge le reste (en évitant de recharger database)
-    for filename in os.listdir('./cogs'):
-        if filename.endswith('.py') and filename != "database.py":
-            try:
-                await bot.load_extension(f'cogs.{filename[:-3]}')
-            except Exception as e:
-                print(f"Erreur lors du chargement de {filename} : {e}")
+        # Charger le reste
+        for filename in os.listdir('./cogs'):
+            if filename.endswith('.py') and filename != "database.py":
+                try:
+                    await self.load_extension(f'cogs.{filename[:-3]}')
+                except Exception as e:
+                    print(f"Erreur chargement {filename} : {e}")
 
-# Exemple dans ton main.py
-@bot.event
-async def on_ready():
-    print(f"✅ {bot.user} est connecté !")
-    # Dans on_ready
-    guild = discord.Object(id=1517113911810326668)
-    bot.tree.copy_global_to(guild=guild)
-    await bot.tree.sync(guild=guild)
-
-# --- AJOUT : Fonction principale asynchrone pour lancer le bot ---
 async def main():
+    keepalive() # Lance le serveur web
+    bot = MyBot()
     async with bot:
-        await load_extensions()
         await bot.start(TOKEN)
 
-keepalive()
-
-# On remplace bot.run(TOKEN) par l'exécution de la fonction main
-asyncio.run(main())
+if __name__ == "__main__":
+    asyncio.run(main())
