@@ -22,7 +22,7 @@ class MyBot(commands.Bot):
         await self.load_extensions()
         
         # 2. Synchronisation FORCEE
-        guild = discord.Object(id=1494456001666224331)
+        guild = discord.Object(id=1517113911810326668)
         self.tree.clear_commands(guild=guild) # <--- On vide tout le cache du serveur
         self.tree.copy_global_to(guild=guild)
         await self.tree.sync(guild=guild) # <--- On renvoie tout proprement
