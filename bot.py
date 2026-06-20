@@ -20,11 +20,11 @@ class MyBot(commands.Bot):
     async def setup_hook(self):
         await self.load_extensions()
         
-        guild = discord.Object(id=1494456001666224331)
+        guild = discord.Object(id=1517113911810326668)
+        
+        self.tree.copy_global_to(guild=guild)  # AJOUTE CETTE LIGNE
         
         try:
-            # On ne fait le sync que si nécessaire, pas à chaque redémarrage si possible
-            # Mais pour ton cas, on garde une logique propre :
             await self.tree.sync(guild=guild)
             print(f"✅ Commandes synchronisées avec le serveur {guild.id}")
         except Exception as e:
