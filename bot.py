@@ -20,13 +20,9 @@ class MyBot(commands.Bot):
     async def setup_hook(self):
         await self.load_extensions()
         
-        guild = discord.Object(id=1517113911810326668)
-        
-        self.tree.copy_global_to(guild=guild)  # AJOUTE CETTE LIGNE
-        
         try:
-            await self.tree.sync(guild=guild)
-            print(f"✅ Commandes synchronisées avec le serveur {guild.id}")
+            synced = await self.tree.sync()
+            print(f"✅ {len(synced)} commandes synchronisées globalement")
         except Exception as e:
             print(f"❌ ERREUR DE SYNCHRO : {e}")
 
