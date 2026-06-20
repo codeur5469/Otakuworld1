@@ -31,19 +31,19 @@ class MyBot(commands.Bot):
             print(f"❌ ERREUR DE SYNCHRO : {e}")
 
     async def load_extensions(self):
-        # Charger database en priorité
         try:
             await self.load_extension("cogs.database")
         except Exception as e:
             print(f"Erreur database : {e}")
+            raise  # stoppe tout, sans DB rien marche
 
-        # Charger le reste
         for filename in os.listdir('./cogs'):
             if filename.endswith('.py') and filename != "database.py":
                 try:
                     await self.load_extension(f'cogs.{filename[:-3]}')
+                    print(f"✅ {filename} chargé")
                 except Exception as e:
-                    print(f"Erreur chargement {filename} : {e}")
+                    print(f"❌ Erreur chargement {filename} : {e}")
 
 async def main():
     keepalive() # Lance le serveur web
