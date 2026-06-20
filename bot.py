@@ -36,13 +36,10 @@ async def load_extensions():
 @bot.event
 async def on_ready():
     print(f"✅ {bot.user} est connecté !")
-    
-    # C'est cette ligne qui fait toute la magie :
-    try:
-        synced = await bot.tree.sync()
-        print(f"🔄 {len(synced)} commandes slash synchronisées avec Discord !")
-    except Exception as e:
-        print(f"❌ Erreur lors de la synchronisation : {e}")
+    # Dans on_ready
+    guild = discord.Object(id=1517113911810326668)
+    bot.tree.copy_global_to(guild=guild)
+    await bot.tree.sync(guild=guild)
 
 # --- AJOUT : Fonction principale asynchrone pour lancer le bot ---
 async def main():
