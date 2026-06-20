@@ -18,15 +18,17 @@ class MyBot(commands.Bot):
         super().__init__(command_prefix="!", intents=intents)
 
     async def setup_hook(self):
-        # 1. Charger les extensions
         await self.load_extensions()
         
-        # 2. Synchronisation FORCEE
-        guild = discord.Object(id=1517113911810326668)
-        self.tree.clear_commands(guild=guild) # <--- On vide tout le cache du serveur
-        self.tree.copy_global_to(guild=guild)
-        await self.tree.sync(guild=guild) # <--- On renvoie tout proprement
-        print("✅ Commandes totalement réinitialisées et synchronisées !")
+        guild = discord.Object(id=1494456001666224331)
+        
+        try:
+            # On ne fait le sync que si nécessaire, pas à chaque redémarrage si possible
+            # Mais pour ton cas, on garde une logique propre :
+            await self.tree.sync(guild=guild)
+            print(f"✅ Commandes synchronisées avec le serveur {guild.id}")
+        except Exception as e:
+            print(f"❌ ERREUR DE SYNCHRO : {e}")
 
     async def load_extensions(self):
         # Charger database en priorité
