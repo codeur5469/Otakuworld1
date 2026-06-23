@@ -33,7 +33,6 @@ class Reglement(commands.Cog):
                 "**🔟 Bon sens**\nLe respect, la maturité et le bon sens sont attendus de tous.\n\n"
                 "⚠️ Le non-respect de ces règles peut entraîner une sanction."
             ),
-            timestamp=datetime(2026, 6, 22, 22, 0, 0)
         )
         
         embed.set_footer(text="☁️ Profitez de votre séjour sur Kumo et amusez-vous !")
